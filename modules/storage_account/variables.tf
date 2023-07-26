@@ -25,6 +25,10 @@ variable "base_tags" {
 variable "vnets" {
   default = {}
 }
+variable "virtual_subnets" {
+  default  = {}
+  nullable = false
+}
 variable "private_endpoints" {
   default = {}
 }
