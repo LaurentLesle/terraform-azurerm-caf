@@ -3,6 +3,11 @@ output "id" {
   value       = azurerm_application_insights.appinsights.id
 }
 
+output "name" {
+  description = "The name of the Application Insights component."
+  value       = azurerm_application_insights.appinsights.name
+}
+
 output "app_id" {
   description = "The App ID associated with this Application Insights component."
   value       = azurerm_application_insights.appinsights.app_id
