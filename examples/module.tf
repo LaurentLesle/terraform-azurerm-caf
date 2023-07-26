@@ -239,6 +239,7 @@ module "example" {
     public_ip_addresses                                     = var.public_ip_addresses
     relay_namespace                                         = var.relay_namespace
     relay_hybrid_connection                                 = var.relay_hybrid_connection
+    routing_intents                                         = var.routing_intents
     public_ip_prefixes                                      = var.public_ip_prefixes
     route_tables                                            = var.route_tables
     traffic_manager_profile                                 = var.traffic_manager_profile

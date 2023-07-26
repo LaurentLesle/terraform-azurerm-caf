@@ -925,6 +925,9 @@ variable "eventgrid_domain_topic" {
 variable "relay_hybrid_connection" {
   default = {}
 }
+variable "routing_intents" {
+  default = {}
+}
 variable "relay_namespace" {
   default = {}
 }

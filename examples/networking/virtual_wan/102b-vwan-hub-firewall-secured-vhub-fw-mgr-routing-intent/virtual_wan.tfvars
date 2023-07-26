@@ -196,8 +196,26 @@ azurerm_firewalls = {
   }
 }
 
+routing_intents = {
+  eastasia = {
+    name = "secureRouting"
+    virtual_hub = {
+      key = "hub1"
+    }
+    next_hops = {
+      policy1 = {
+        name = "policy1"
+        # azurerm_firewall key
+        key = "firewall1"
 
-
+        destinations = [
+          "PrivateTraffic",
+          "Internet"
+        ]
+      }
+    }
+  }
+}
 
 vnets = {
   vnet1 = {
@@ -220,16 +238,5 @@ virtual_hub_connections = {
     }
     # to route internet traffic through firewall in secure hub, set internet_security_enabled to true
     internet_security_enabled = true
-    routing = {
-      firewall_manager = {
-        virtual_hub_route_table_key = "defaultRouteTable"
-        propagated_route_table = {
-          # To route vnet to vnet traffic through firewall manager (private traffic)
-          labels = ["none"]
-          # Route internet traffic through firewall manager (private traffic)
-          virtual_hub_route_table_keys = ["noneRouteTable"]
-        }
-      }
-    }
   }
 }
