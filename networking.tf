@@ -54,10 +54,11 @@ module "networking" {
   # Does not support legacy load_balancers. Prefer lb
   #
   remote_dns = {
-    azurerm_firewall  = try(var.remote_objects.azurerm_firewalls, {})
-    azurerm_firewalls = try(var.remote_objects.azurerm_firewalls, {})
-    virtual_machines  = try(var.remote_objects.virtual_machines, {})
-    lb                = try(var.remote_objects.lb, {})
+    azurerm_firewall                       = try(var.remote_objects.azurerm_firewalls, {})
+    azurerm_firewalls                      = try(var.remote_objects.azurerm_firewalls, {})
+    lb                                     = try(var.remote_objects.lb, {})
+    virtual_machines                       = try(var.remote_objects.virtual_machines, {})
+    private_dns_resolver_inbound_endpoints = var.remote_objects.private_dns_resolver_inbound_endpoints
   }
 }
 
@@ -224,7 +225,7 @@ resource "azurerm_virtual_network_peering" "peering" {
 # (azurerm does not access the resource id of the vnet in the from)
 # use the variable vnet_peerings_v1
 resource "azapi_resource" "virtualNetworkPeerings" {
-  depends_on = [module.networking]
+  depends_on = [module.networking, module.virtual_subnets]
   for_each   = local.networking.vnet_peerings_v1
 
   type      = "Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2021-05-01"

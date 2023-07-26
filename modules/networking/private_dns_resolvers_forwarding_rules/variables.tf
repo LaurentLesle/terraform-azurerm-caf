@@ -10,3 +10,6 @@ variable "settings" {
 
 variable "dns_forwarding_ruleset_id" {
 }
+variable "remote_objects" {
+  default = {}
+}

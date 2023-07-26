@@ -7,10 +7,11 @@ module "azurerm_firewall_policies" {
   }
 
   global_settings = local.global_settings
+  client_config   = local.client_config
   settings        = each.value
   tags            = try(each.value.tags, null)
 
-  resource_group = can(each.value.resource_group.id) ? each.value.resource_group.id : local.combined_objects_resource_groups[try(each.value.lz_key, local.client_config.landingzone_key)][try(each.value.resource_group_key, each.value.resource_group.key)]
+  resource_group = can(each.value.resource_group.id) ? each.value.resource_group.id : local.combined_objects_resource_groups[try(each.value.resource_group.lz_key, local.client_config.landingzone_key)][try(each.value.resource_group_key, each.value.resource_group.key)]
 }
 
 module "azurerm_firewall_policies_child" {
@@ -21,12 +22,16 @@ module "azurerm_firewall_policies_child" {
   }
 
   global_settings = local.global_settings
+  client_config   = local.client_config
   settings        = each.value
   tags            = try(each.value.tags, null)
 
   base_policy_id = can(each.value.base_policy.id) ? each.value.base_policy.id : local.combined_objects_azurerm_firewall_policies[try(each.value.base_policy.lz_key, local.client_config.landingzone_key)][each.value.base_policy.key].id
+  resource_group = can(each.value.resource_group.id) ? each.value.resource_group.id : local.combined_objects_resource_groups[try(each.value.resource_group.lz_key, local.client_config.landingzone_key)][try(each.value.resource_group_key, each.value.resource_group.key)]
 
-  resource_group = can(each.value.resource_group.id) ? each.value.resource_group.id : local.combined_objects_resource_groups[try(each.value.lz_key, local.client_config.landingzone_key)][try(each.value.resource_group_key, each.value.resource_group.key)]
+  remote_objects = {
+    private_dns_resolver_inbound_endpoints = local.combined_objects_private_dns_resolver_inbound_endpoints
+  }
 }
 
 

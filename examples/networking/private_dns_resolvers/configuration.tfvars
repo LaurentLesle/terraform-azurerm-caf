@@ -84,23 +84,33 @@ private_dns_resolvers = {
 }
 
 private_dns_resolver_inbound_endpoints = {
+  # each inbound_endpoint provides 10k DNS Request Per Second. Add up to 5 to increase the throughput.
   inbound_endpoint1 = {
     name = "test-inbound-endpint1"
     private_dns_resolver = {
       key = "dns_resolver1"
       #lz_key = ""
     }
-    ip_configurations = {
-      ip_config1 = {
-        #subnet_id=""
-        vnet = {
-          #lz_key = ""
-          key = "vnet1"
-          #id = ""
-          subnet_key = "inbound"
-        }
+    # deprecated in aztfmod from 5.8.0
+    # ip_configurations = {
+    #   ip_config1 = {
+    #     #subnet_id=""
+    #     vnet = {
+    #       #lz_key = ""
+    #       key = "vnet1"
+    #       #id = ""
+    #       subnet_key = "inbound"
+    #     }
 
-      }
+    #   }
+    # }
+
+    # replace with vnet directly
+    vnet = {
+      #lz_key = ""
+      key = "vnet1"
+      #id = ""
+      subnet_key = "inbound"
     }
   }
 }

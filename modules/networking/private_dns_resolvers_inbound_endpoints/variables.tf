@@ -13,9 +13,7 @@ variable "location" {
 
 variable "private_dns_resolver_id" {
 }
-variable "subnet_ids" {
-  type = list(string)
-}
+variable "subnet_id" {}
 
 variable "tags" {
   default = {}

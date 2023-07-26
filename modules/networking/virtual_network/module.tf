@@ -131,6 +131,10 @@ locals {
       if contains(["azurerm_firewall", "azurerm_firewalls"], obj.resource_type)
     ],
     [
+      for obj in try(var.settings.vnet.dns_servers_keys, {}) : var.remote_dns[obj.resource_type][obj.lz_key][obj.key].private_ip_address
+      if contains(["private_dns_resolver_inbound_endpoints", ""], obj.resource_type)
+    ],
+    [
       for obj in try(var.settings.vnet.dns_servers_keys, {}) :
       var.remote_dns.lb[obj.lz_key][obj.key].private_ip_addresses
       if contains(["lb"], obj.resource_type)

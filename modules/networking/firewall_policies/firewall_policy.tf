@@ -23,11 +23,24 @@ resource "azurerm_firewall_policy" "fwpol" {
   tags                     = local.tags
 
   dynamic "dns" {
-    for_each = try(var.settings.dns, null) == null ? [] : [1]
+    for_each = can(var.settings.dns.servers) ? [1] : []
 
     content {
       servers       = try(var.settings.dns.servers, null)
       proxy_enabled = try(var.settings.dns.proxy_enabled, false)
+    }
+  }
+
+  dynamic "dns" {
+    for_each = can(var.settings.dns.servers_objects) ? [1] : []
+
+    content {
+      proxy_enabled = try(var.settings.dns.proxy_enabled, false)
+      servers = concat(
+        [
+          for key, value in var.settings.dns.servers_objects : var.remote_objects[value.object_type][try(value.lz_key, var.client_config.landingzone_key)][value.key].private_ip_address
+        ]
+      )
     }
   }
 
