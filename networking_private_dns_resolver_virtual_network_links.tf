@@ -1,6 +1,6 @@
 
-module "private_dns_resolvers_virtual_network_links" {
-  source   = "./modules/networking/private_dns_resolvers_virtual_network_links"
+module "private_dns_resolver_virtual_network_links" {
+  source   = "./modules/networking/private_dns_resolver_virtual_network_links"
   for_each = local.networking.private_dns_resolver_virtual_network_links
 
   global_settings           = local.global_settings
@@ -10,6 +10,11 @@ module "private_dns_resolvers_virtual_network_links" {
   virtual_networks          = local.combined_objects_networking
 }
 
-output "private_dns_resolvers_virtual_network_links" {
-  value = module.private_dns_resolvers_virtual_network_links
+moved {
+  from = "module.private_dns_resolvers_virtual_network_links"
+  to   = "module.private_dns_resolver_virtual_network_links"
+}
+
+output "private_dns_resolver_virtual_network_links" {
+  value = module.private_dns_resolver_virtual_network_links
 }
