@@ -13,12 +13,6 @@ pr:
 #   name: contoso-level0
 
 resources:
-  repositories:
-  - repository: aztfmod
-    type: github
-    name: aztfmod/terraform-azurerm-caf
-    endpoint: aztfmod
-
   containers:
   - container: rover
     image: aztfmod/rover:1.5.4-2307.2804
