@@ -1,0 +1,32 @@
+
+name: pr
+
+pr:
+  autoCancel: false # Whether to cancel running PR builds when a new commit lands in the branch. Default: true.
+  branches: # Branch names to include or exclude for triggering a run.
+    include:  # List of items to include.
+    - main
+  drafts: false
+
+
+# pool:
+#   name: contoso-level0
+
+resources:
+  repositories:
+  - repository: aztfmod
+    type: github
+    name: aztfmod/terraform-azurerm-caf
+    endpoint: aztfmod
+
+  containers:
+  - container: rover
+    image: aztfmod/rover:1.5.4-2307.2804
+
+steps:
+- checkout: self
+  fetchTags: true
+
+- bash: |
+    /tf/rover/rover.sh
+  displayName: Terraform plan
