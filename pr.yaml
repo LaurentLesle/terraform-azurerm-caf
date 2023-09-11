@@ -40,6 +40,7 @@ steps:
 
     for folder in "${changed_folders[@]}"; do
       paths_without_filename=$(dirname "$folder")
+      echo "Adding: $paths_without_filename"
       paths_without_filenames+=("$paths_without_filename")
     done
 
