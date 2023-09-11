@@ -44,7 +44,7 @@ stages:
         matrix=""
     
         # Create a temporary YAML file with the generated matrix
-        echo "jobs:" > matrix.yml
+        echo "jobs:" > jobs.yml
           
         for folder in ${changed_folders[@]}; do
           echo "Processing: $folder"
@@ -54,14 +54,14 @@ stages:
           formatted_string=$(echo "$path_without_filename" | sed 's/examples_//; s/[/\-]/_/g')
         
           echo "  - job: $formatted_string" >> matrix.yml
-          echo "    steps:" >> matrix.yml
+          echo "    steps:" >> jobs.yml
           echo "    - bash: echo 'Hello'" >> matrix.yml
         done
         
-        pipeline_yaml_path="matrix.yml"
+        pipeline_yaml_path="jobs.yml"
         echo "##vso[task.setvariable variable=pipeline_yaml_path;isOutput=true]$pipeline_yaml_path"        
         # Display the generated matrix YAML for verification
-        cat matrix.yml
+        cat jobs.yml
         
         # Join the array elements with a comma delimiter    
         CHANGED_FOLDERS=$(IFS=","; echo "${paths_without_filenames[*]}")
