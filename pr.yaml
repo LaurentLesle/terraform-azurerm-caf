@@ -58,7 +58,6 @@ steps:
 - script: |
     # Access the EXAMPLE_FOLDERS variable
     echo "Changed Files: $(changeset.EXAMPLE_FOLDERS)"
-    folders=$(echo $(changeset.EXAMPLE_FOLDERS))
     
     while IFS=" " read -ra folders; do
       for folder in "${folders[@]}"; do
