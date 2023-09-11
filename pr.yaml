@@ -24,7 +24,7 @@ steps:
 - bash: |
     echo "git diff --name-only HEAD^"
     git diff --name-only HEAD^
-    echo "
+    echo ""
     
     changed_folders=$(git diff --name-only HEAD^ | grep 'examples' | sort -u)
 
