@@ -38,7 +38,7 @@ steps:
     # Initialize an empty list to store the examples folders
     paths_without_filenames=()
 
-    for folder in "${changed_folders}"; do
+    for folder in "${changed_folders[@]}"; do
       paths_without_filenames+=("$(dirname "$folder")")
     done
 
@@ -47,6 +47,7 @@ steps:
     echo "Content of CHANGED_FOLDERS"
     echo $CHANGED_FOLDERS
 
+    echo "set output variable"
     echo "##vso[task.setvariable variable=CHANGED_FOLDERS;isOutput=true]$CHANGED_FOLDERS"
   displayName: Getting the changeset
 
