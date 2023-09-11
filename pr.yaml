@@ -51,10 +51,10 @@ steps:
     echo $CHANGED_FOLDERS
 
     echo "set output variable"
-    echo "##vso[task.setvariable variable=CHANGED_FOLDERS;isOutput=true]$paths_without_filenames"
+    echo "##vso[task.setvariable variable=EXAMPLE_FOLDERS;isOutput=true]$CHANGED_FOLDERS"
   displayName: Getting the changeset
 
 - script: |
-    # Access the CHANGED_FOLDERS variable
-    echo "Changed Files: $(CHANGED_FOLDERS)"
-  displayName: 'Print CHANGED_FOLDERS variable'
+    # Access the EXAMPLE_FOLDERS variable
+    echo "Changed Files: $(EXAMPLE_FOLDERS)"
+  displayName: 'Print EXAMPLE_FOLDERS variable'
