@@ -49,9 +49,9 @@ stages:
         for folder in ${changed_folders[@]}; do
           echo "Processing: $folder"
           path_without_filename=$(dirname "$folder")
-          echo "Adding: $paths_without_filename"
+          echo "Adding: $path_without_filename"
           paths_without_filenames+=("$path_without_filename")
-          formatted_string=$(echo "$path_without_filename" | tr '/-' '_')
+          formatted_string=$(echo "$path_without_filename" | sed 's/examples_//; s/[/\-]/_/g')
         
           echo "  - job: $formatted_string" >> matrix.yml
           echo "    steps:" >> matrix.yml
