@@ -22,5 +22,12 @@ steps:
   fetchTags: true
 
 - bash: |
-    git diff --name-only HEAD^
+    changed_files=$(git diff --name-only HEAD^ | grep 'examples' | cut -d '/' -f 1 | sort -u)
+
+    if [ -z "$changed_files" ]; then
+      echo "Error: No paths with 'examples' found in the changed files."
+      echo "Missing examples folder in the change set.\n"
+      git diff --name-only HEAD^
+      exit 1
+    fi
   displayName: Getting the changeset
