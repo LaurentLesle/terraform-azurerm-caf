@@ -78,6 +78,6 @@ jobs:
 
   steps:
   - script: |
-      echo "Running job for ${{ dependencies.analyse_changes.outputs['analyse_changes.changeset.EXAMPLE_FOLDERS'] }}"
+      echo "Running job for $( dependencies.analyse_changes.outputs['analyse_changes.changeset.EXAMPLE_FOLDERS'] )"
   
     displayName: 'Print EXAMPLE_FOLDERS variable'
