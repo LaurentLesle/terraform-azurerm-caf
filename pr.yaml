@@ -42,20 +42,20 @@ jobs:
       paths_without_filenames=()
       matrix=""
   
+      # Create a temporary YAML file with the generated matrix
+      echo "jobs:" > matrix.yml
+        
       for folder in ${changed_folders[@]}; do
         echo "Processing: $folder"
         paths_without_filename=$(dirname "$folder")
         echo "Adding: $paths_without_filename"
         paths_without_filenames+=("$paths_without_filename")
         matrix="$matrix\n  - folder: $folder"
+      
+        echo "  - job:" >> matrix.yml
+        echo "    steps:" >> matrix.yml
+        echo "    - bash: echo $folder" >> matrix.yml
       done
-
-      # Create a temporary YAML file with the generated matrix
-      echo "jobs:" > matrix.yml
-      echo "  - job: dynamic_matrix" >> matrix.yml
-      echo "    strategy:" >> matrix.yml
-      echo "      matrix:" >> matrix.yml
-      echo -e "$matrix" >> matrix.yml
       
       pipeline_yaml_path="matrix.yml"
       echo "##vso[task.setvariable variable=pipeline_yaml_path;isOutput=true]$pipeline_yaml_path"        
@@ -72,12 +72,12 @@ jobs:
     displayName: Getting the example folders
     name: changeset
 
-- job: run_example
-  dependsOn:
-  - analyse_changes
+# - job: run_example
+#   dependsOn:
+#   - analyse_changes
 
-  steps:
-  - script: |
-      echo "Running job for ${{ dependencies.analyse_changes.outputs['analyse_changes.changeset.EXAMPLE_FOLDERS'] }}"
+#   steps:
+#   - script: |
+#       echo "Running job for ${{ dependencies.analyse_changes.outputs['analyse_changes.changeset.EXAMPLE_FOLDERS'] }}"
   
-    displayName: 'Print EXAMPLE_FOLDERS variable'
+#     displayName: 'Print EXAMPLE_FOLDERS variable'
