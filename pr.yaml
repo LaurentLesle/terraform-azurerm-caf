@@ -73,9 +73,4 @@ stages:
       displayName: Getting the example folders
       name: changeset
 
-- stage: run
-  jobs:
-  - template: matrix.yaml
-  dependsOn:
-  - prep
 
