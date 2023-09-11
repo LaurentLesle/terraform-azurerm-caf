@@ -30,4 +30,11 @@ steps:
       git diff --name-only HEAD^
       exit 1
     fi
+
+    echo "##vso[task.setvariable variable=CHANGED_FILES]$changed_files"
   displayName: Getting the changeset
+
+- script: |
+    # Access the CHANGED_FILES variable
+    echo "Changed Files: $CHANGED_FILES"
+  displayName: 'Print CHANGED_FILES variable'
