@@ -18,7 +18,8 @@ resources:
     image: aztfmod/rover:1.5.4-2307.2804
 
 jobs:
-- job: analyse_changes
+- job:
+  name: analyse_changes
   steps:
   - checkout: self
     fetchTags: true
@@ -60,7 +61,7 @@ jobs:
 - job: run_example
   strategy:
     matrix:
-      folder: ${{ split(job.outputs.CHANGED_FOLDERS, ' ') }}
+      folder: ${{ split(dependencies.analyse_changes.outputs['changeset.CHANGED_FOLDERS'], ' ') }}
   steps:
   - script: |
       echo "Running job for ${{ matrix.folder }}"
