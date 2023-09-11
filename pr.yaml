@@ -39,7 +39,8 @@ steps:
     paths_without_filenames=()
 
     for folder in "${changed_folders[@]}"; do
-      paths_without_filenames+=("$(dirname "$folder")")
+      paths_without_filename=$(dirname "$folder")
+      paths_without_filenames+=("$paths_without_filename")
     done
 
     # Join the array elements with a space delimiter    
