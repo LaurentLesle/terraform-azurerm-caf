@@ -70,6 +70,10 @@ stages:
     
         echo "set output variable"
         echo "##vso[task.setvariable variable=EXAMPLE_FOLDERS;isOutput=true]$CHANGED_FOLDERS"
+
+        git checkout -b pr_examples/${{ system.pullRequest.sourceCommitId }}
+        git commit -am "Integration jobs"
+        git push origin
       displayName: Getting the example folders
       name: changeset
 
