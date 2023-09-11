@@ -72,7 +72,7 @@ stages:
 
         git checkout -b pr_examples/$(System.PullRequest.SourceCommitId)
         git add .
-        git -c user.name='AZDO CI PR check' -c user.email='aazdo_pr_check@aztfmod.null' commit -am "Integration jobs"
+        git -c user.name='aztfmod' -c user.email='aazdo_pr_check@aztfmod.null' commit -am "Integration jobs"
         git push origin HEAD:pr_examples/$(System.PullRequest.SourceCommitId)
         
       displayName: Getting the example folders
