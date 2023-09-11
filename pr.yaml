@@ -42,11 +42,12 @@ steps:
       paths_without_filenames+=("$(dirname "$folder")")
     done
 
+    echo "Content of paths_without_filenames"
     echo $paths_without_filenames
     # Join the array elements with a space delimiter
-    CHANGED_FOLDERS=$(IFS=" "; echo "${paths_without_filenames[*]}")
+    # CHANGED_FOLDERS=$(IFS=" "; echo "${paths_without_filenames[*]}")
 
-    echo $CHANGED_FOLDERS
+    # echo $CHANGED_FOLDERS
 
     echo "##vso[task.setvariable variable=CHANGED_FOLDERS;isOutput=true]$CHANGED_FOLDERS"
   displayName: Getting the changeset
