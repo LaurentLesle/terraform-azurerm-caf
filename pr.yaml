@@ -75,7 +75,7 @@ stages:
 
 - stage: run
   jobs:
-  - template: ${{ dependencies.prep.outputs['analyse_changes.changeset.pipeline_yaml_path'] }}
+  - template: matrix.yaml
   dependsOn:
   - prep
 
