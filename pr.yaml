@@ -18,8 +18,7 @@ resources:
     image: aztfmod/rover:1.5.4-2307.2804
 
 jobs:
-- job:
-  name: analyse_changes
+- job: analyse_changes
   steps:
   - checkout: self
     fetchTags: true
