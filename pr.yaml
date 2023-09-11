@@ -24,6 +24,9 @@ stages:
     steps:
     - checkout: self
       fetchTags: true
+
+    - checkout: git://aztfmod_terraform-azurerm-caf-forked-laurentlesle/pr_integration
+      persistCredentials: true
     
     - bash: |
         echo "git diff --name-only HEAD^"
