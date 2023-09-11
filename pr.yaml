@@ -57,12 +57,12 @@ jobs:
     displayName: Getting the example folders
     name: changeset
 
-  - job: run_example
-    strategy:
-      matrix:
-        folder: ${{ split(job.outputs.CHANGED_FOLDERS, ' ') }}
-    steps:
-    - script: |
-        echo "Running job for ${{ matrix.folder }}"
-    
-      displayName: 'Print EXAMPLE_FOLDERS variable'
+- job: run_example
+  strategy:
+    matrix:
+      folder: ${{ split(job.outputs.CHANGED_FOLDERS, ' ') }}
+  steps:
+  - script: |
+      echo "Running job for ${{ matrix.folder }}"
+  
+    displayName: 'Print EXAMPLE_FOLDERS variable'
