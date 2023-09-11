@@ -56,5 +56,5 @@ steps:
 
 - script: |
     # Access the EXAMPLE_FOLDERS variable
-    echo "Changed Files: $(EXAMPLE_FOLDERS)"
+    echo "Changed Files: ${{ job.outputs.EXAMPLE_FOLDERS }}"
   displayName: 'Print EXAMPLE_FOLDERS variable'
