@@ -22,12 +22,14 @@ stages:
   jobs:
   - job: analyse_changes
     steps:
+    
+    - checkout: git://aztfmod_terraform-azurerm-caf-forked-laurentlesle/pr_integration
+      persistCredentials: true
+      fetchTags: false
+      
     - checkout: self
       fetchTags: true
 
-    - checkout: git://aztfmod_terraform-azurerm-caf-forked-laurentlesle/pr_integration
-      persistCredentials: true
-    
     - bash: |
         echo "git diff --name-only HEAD^"
         git diff --name-only HEAD^
