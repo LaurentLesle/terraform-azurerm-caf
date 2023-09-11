@@ -6,3 +6,7 @@ resources:
 
 jobs:
 - template: matrix.yaml
+  trigger: 
+    branches:
+      include: 
+      - pr_examples/*
