@@ -1,0 +1,10 @@
+resources:
+  pipelines:
+  - pipeline: pr_examples_jobs # Name of the pipeline resource.
+    source: pr # The name of the pipeline referenced by this pipeline resource.
+    trigger: true # Run app-ci pipeline when any run of security-lib-ci completes
+
+jobs:
+- template: matrix.yaml
+dependsOn:
+- prep
