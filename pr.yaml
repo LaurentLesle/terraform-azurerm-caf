@@ -39,8 +39,7 @@ steps:
     paths_without_filenames=()
 
     for folder in "${changed_folders[@]}"; do
-      path_without_filename=$(dirname "$folder")
-      paths_without_filenames+=("$path_without_filename")
+      paths_without_filenames+="$(dirname "$folder");"
     done
 
     echo "##vso[task.setvariable variable=CHANGED_FOLDERS;isOutput=true]$paths_without_filenames"
