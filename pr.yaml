@@ -72,14 +72,14 @@ jobs:
     displayName: Getting the example folders
     name: changeset
 
-# - job: run_example
-#   dependsOn:
-#   - analyse_changes
-#   strategy:
-#     matrix: 
-#       folder: [$[dependencies.analyse_changes.outputs['analyse_changes.changeset.EXAMPLE_FOLDERS']]]
-#   steps:
-#   - script: |
-#       echo "Running job for ${{ matrix.folder }}"
+- job: run_example
+  dependsOn:
+  - analyse_changes
+  strategy:
+    matrix: 
+      folder: ${{ each folder in split($[dependencies.analyse_changes.outputs['analyse_changes.changeset.EXAMPLE_FOLDERS']], ',') }}
+  steps:
+  - script: |
+      echo "Running job for ${{ matrix.folder }}"
   
-#     displayName: 'Print EXAMPLE_FOLDERS variable'
+    displayName: 'Print EXAMPLE_FOLDERS variable'
