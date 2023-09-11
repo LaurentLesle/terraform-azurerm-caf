@@ -36,7 +36,6 @@ storage_accounts = {
 
         acl = {
           id = "GhostedRecall"
-
           access_policy = {
             permissions = "r"
           }
