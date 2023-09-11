@@ -50,11 +50,11 @@ jobs:
         paths_without_filename=$(dirname "$folder")
         echo "Adding: $paths_without_filename"
         paths_without_filenames+=("$paths_without_filename")
-        matrix="$matrix\n  - folder: $folder"
+        formatted_string=$(echo "$paths_without_filenames" | tr '/-' '_')
       
         echo "  - job:" >> matrix.yml
         echo "    steps:" >> matrix.yml
-        echo "    - bash: echo $folder" >> matrix.yml
+        echo "    - bash: echo $formatted_string" >> matrix.yml
       done
       
       pipeline_yaml_path="matrix.yml"
