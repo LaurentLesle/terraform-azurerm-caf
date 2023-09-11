@@ -58,6 +58,8 @@ jobs:
     name: changeset
 
 - job: run_example
+  dependsOn:
+  - analyse_changes
   strategy:
     matrix:
       folder: ${{ split(dependencies.analyse_changes.outputs['changeset.CHANGED_FOLDERS'], ' ') }}
