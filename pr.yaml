@@ -38,7 +38,7 @@ steps:
     # Initialize an empty list to store the examples folders
     paths_without_filenames=()
 
-    for folder in "${changed_folders[@]}"; do
+    for folder in ${changed_folders[@]}; do
       echo "Processing: $folder"
       paths_without_filename=$(dirname "$folder")
       echo "Adding: $paths_without_filename"
