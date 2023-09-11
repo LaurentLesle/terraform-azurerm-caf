@@ -60,8 +60,11 @@ steps:
     echo "Changed Files: $(changeset.EXAMPLE_FOLDERS)"
     folders=$(echo $(changeset.EXAMPLE_FOLDERS))
     
-    while IFS=" " read -r var; do
-      echo $var
-    done <<< $(echo ${folders})
+    while IFS=" " read -ra folders; do
+      for folder in "${folders[@]}"; do
+        echo "Folder: $folder"
+        # Add your logic here for each folder
+      done
+    done <<< $(echo $(changeset.EXAMPLE_FOLDERS))
 
   displayName: 'Print EXAMPLE_FOLDERS variable'
