@@ -58,7 +58,7 @@ steps:
 - script: |
     # Access the EXAMPLE_FOLDERS variable
     echo "Changed Files: $(changeset.EXAMPLE_FOLDERS)"
-    folders=$(changeset.EXAMPLE_FOLDERS)
+    folders=$(echo $(changeset.EXAMPLE_FOLDERS))
     
     while IFS=" " read -r var; do
       echo $var
