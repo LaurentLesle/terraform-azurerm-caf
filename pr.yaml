@@ -17,54 +17,58 @@ resources:
   - container: rover
     image: aztfmod/rover:1.5.4-2307.2804
 
-jobs:
-- job: analyse_changes
-  steps:
-  - checkout: self
-    fetchTags: true
-  
-  - bash: |
-      echo "git diff --name-only HEAD^"
-      git diff --name-only HEAD^
-      echo ""
-      
-      changed_folders=$(git diff --name-only HEAD^ | grep 'examples' | sort -u)
-  
-      if [ -z "$changed_folders" ]; then
-        echo "Error: No paths with 'examples' found in the changed files."
-        echo "Missing examples folder in the change set.\n"
+stages:
+- stage: prep
+  jobs:
+  - job: analyse_changes
+    steps:
+    - checkout: self
+      fetchTags: true
+    
+    - bash: |
+        echo "git diff --name-only HEAD^"
         git diff --name-only HEAD^
-        exit 1
-      fi
-  
-      # Initialize an empty list to store the examples folders
-      paths_without_filenames=()
-  
-      for folder in ${changed_folders[@]}; do
-        echo "Processing: $folder"
-        paths_without_filename=$(dirname "$folder")
-        echo "Adding: $paths_without_filename"
-        paths_without_filenames+=("$paths_without_filename")
-      done
-  
-      # Join the array elements with a space delimiter    
-      CHANGED_FOLDERS=$(IFS=" "; echo "${paths_without_filenames[*]}")
-      echo "Content of CHANGED_FOLDERS"
-      echo $CHANGED_FOLDERS
-  
-      echo "set output variable"
-      echo "##vso[task.setvariable variable=EXAMPLE_FOLDERS;isOutput=true]$CHANGED_FOLDERS"
-    displayName: Getting the example folders
-    name: changeset
+        echo ""
+        
+        changed_folders=$(git diff --name-only HEAD^ | grep 'examples' | sort -u)
+    
+        if [ -z "$changed_folders" ]; then
+          echo "Error: No paths with 'examples' found in the changed files."
+          echo "Missing examples folder in the change set.\n"
+          git diff --name-only HEAD^
+          exit 1
+        fi
+    
+        # Initialize an empty list to store the examples folders
+        paths_without_filenames=()
+    
+        for folder in ${changed_folders[@]}; do
+          echo "Processing: $folder"
+          paths_without_filename=$(dirname "$folder")
+          echo "Adding: $paths_without_filename"
+          paths_without_filenames+=("$paths_without_filename")
+        done
+    
+        # Join the array elements with a space delimiter    
+        CHANGED_FOLDERS=$(IFS=" "; echo "${paths_without_filenames[*]}")
+        echo "Content of CHANGED_FOLDERS"
+        echo $CHANGED_FOLDERS
+    
+        echo "set output variable"
+        echo "##vso[task.setvariable variable=EXAMPLE_FOLDERS;isOutput=true]$CHANGED_FOLDERS"
+      displayName: Getting the example folders
+      name: changeset
 
-- job: run_example
-  dependsOn:
-  - analyse_changes
-  strategy:
-    matrix: 
-      folder: $[dependencies.analyse_changes.outputs['analyse_changes.changeset.CHANGED_FOLDERS']]
-  steps:
-  - script: |
-      echo "Running job for ${{ matrix.folder }}"
-  
-    displayName: 'Print EXAMPLE_FOLDERS variable'
+- stage: examples
+  jobs:
+  - job: run_example
+    dependsOn:
+    - prep
+    strategy:
+      matrix: 
+        folder: $[stageDependencies.prep.analyse_changes.outputs['analyse_changes.changeset.CHANGED_FOLDERS']]
+    steps:
+    - script: |
+        echo "Running job for ${{ matrix.folder }}"
+    
+      displayName: 'Print EXAMPLE_FOLDERS variable'
