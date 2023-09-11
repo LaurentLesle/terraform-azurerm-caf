@@ -70,9 +70,10 @@ stages:
         echo "set output variable"
         echo "##vso[task.setvariable variable=EXAMPLE_FOLDERS;isOutput=true]$CHANGED_FOLDERS"
 
+        git remote add pr_integration https://terraformdev@dev.azure.com/terraformdev/aztfmod_terraform-azurerm-caf-forked-laurentlesle/_git/pr_integration
         git checkout -b pr_examples/$(System.PullRequest.SourceCommitId) || git checkout pr_examples/$(System.PullRequest.SourceCommitId) && git pull
         git add .
-        git -c user.name='lolorol' -c user.email='aazdo_pr_check@aztfmod.null' commit -am "Integration jobs"
+        git -c user.name='aztfmod.test' -c user.email='aazdo_pr_check@aztfmod.null' commit -am "Integration jobs"
         git push origin HEAD:pr_examples/$(System.PullRequest.SourceCommitId)
         
       displayName: Getting the example folders
