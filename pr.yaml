@@ -56,5 +56,5 @@ steps:
 
 - script: |
     # Access the CHANGED_FOLDERS variable
-    echo "Changed Files: $CHANGED_FOLDERS"
+    echo "Changed Files: $(CHANGED_FOLDERS)"
   displayName: 'Print CHANGED_FOLDERS variable'
