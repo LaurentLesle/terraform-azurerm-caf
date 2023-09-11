@@ -77,7 +77,8 @@ jobs:
   - analyse_changes
   strategy:
     matrix: 
-      folder: ${{ each folder in split($[dependencies.analyse_changes.outputs['analyse_changes.changeset.EXAMPLE_FOLDERS']], ',') }}
+      folder: 
+      - ${{ each folder in split($[dependencies.analyse_changes.outputs['analyse_changes.changeset.EXAMPLE_FOLDERS']], ',') }}
   steps:
   - script: |
       echo "Running job for ${{ matrix.folder }}"
