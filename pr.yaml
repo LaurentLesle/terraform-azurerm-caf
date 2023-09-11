@@ -22,6 +22,10 @@ steps:
   fetchTags: true
 
 - bash: |
+    echo "git diff --name-only HEAD^"
+    git diff --name-only HEAD^
+    echo "
+    
     changed_files=$(dirname $(git diff --name-only HEAD^ | grep 'examples' | sort -u))
 
     if [ -z "$changed_files" ]; then
