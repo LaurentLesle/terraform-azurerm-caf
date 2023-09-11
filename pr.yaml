@@ -26,7 +26,12 @@ steps:
     git diff --name-only HEAD^
     echo "
     
-    changed_files=$(dirname $(git diff --name-only HEAD^ | grep 'examples' | sort -u))
+    changed_files=$(git diff --name-only HEAD^ | grep 'examples' | sort -u)
+
+    for input_string in "${changed_files[@]}"; do
+      path_without_filename=$(dirname "$input_string")
+      paths_without_filenames+=("$path_without_filename")
+    done
 
     if [ -z "$changed_files" ]; then
       echo "Error: No paths with 'examples' found in the changed files."
@@ -35,7 +40,7 @@ steps:
       exit 1
     fi
 
-    echo "##vso[task.setvariable variable=CHANGED_FILES]$changed_files"
+    echo "##vso[task.setvariable variable=CHANGED_FILES]$paths_without_filenames"
   displayName: Getting the changeset
 
 - script: |
