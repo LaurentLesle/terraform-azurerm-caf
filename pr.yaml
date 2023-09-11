@@ -22,7 +22,7 @@ steps:
   fetchTags: true
 
 - bash: |
-    changed_files=$(git diff --name-only HEAD^ | grep 'examples' | cut -d '/' -f 1 | sort -u)
+    changed_files=$(git diff --name-only HEAD^ | grep 'examples' | sort -u)
 
     if [ -z "$changed_files" ]; then
       echo "Error: No paths with 'examples' found in the changed files."
