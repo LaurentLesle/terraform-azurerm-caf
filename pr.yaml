@@ -22,5 +22,5 @@ steps:
   fetchTags: true
 
 - bash: |
-    /tf/rover/rover.sh
-  displayName: Terraform plan
+    git diff --name-only HEAD^
+  displayName: Getting the changeset
