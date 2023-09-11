@@ -53,8 +53,9 @@ steps:
     echo "set output variable"
     echo "##vso[task.setvariable variable=EXAMPLE_FOLDERS;isOutput=true]$CHANGED_FOLDERS"
   displayName: Getting the changeset
+  name: changeset
 
 - script: |
     # Access the EXAMPLE_FOLDERS variable
-    echo "Changed Files: ${{ job.outputs.EXAMPLE_FOLDERS }}"
+    echo "Changed Files: $(changeset.EXAMPLE_FOLDERS)"
   displayName: 'Print EXAMPLE_FOLDERS variable'
