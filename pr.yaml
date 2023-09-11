@@ -62,8 +62,8 @@ jobs:
       # Display the generated matrix YAML for verification
       cat matrix.yml
       
-      # Join the array elements with a space delimiter    
-      CHANGED_FOLDERS=$(IFS=" "; echo "${paths_without_filenames[*]}")
+      # Join the array elements with a comma delimiter    
+      CHANGED_FOLDERS=$(IFS=","; echo "${paths_without_filenames[*]}")
       echo "Content of CHANGED_FOLDERS"
       echo $CHANGED_FOLDERS
   
