@@ -63,7 +63,7 @@ jobs:
       cat matrix.yml
       
       # Join the array elements with a space delimiter    
-      CHANGED_FOLDERS=$(IFS=" "; echo "${paths_without_filenames[*]}")
+      CHANGED_FOLDERS=$(IFS=","; echo "${paths_without_filenames[*]}")
       echo "Content of CHANGED_FOLDERS"
       echo $CHANGED_FOLDERS
   
@@ -77,7 +77,7 @@ jobs:
   - analyse_changes
   strategy:
     matrix: 
-      folder: $[dependencies.analyse_changes.outputs['analyse_changes.changeset.pipeline_yaml_path']]
+      folder: [$[dependencies.analyse_changes.outputs['analyse_changes.changeset.EXAMPLE_FOLDERS']]]
   steps:
   - script: |
       echo "Running job for ${{ matrix.folder }}"
