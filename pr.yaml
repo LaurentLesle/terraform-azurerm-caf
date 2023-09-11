@@ -42,7 +42,7 @@ steps:
       paths_without_filenames+=("$(dirname "$folder")",)
     done
 
-    echo "##vso[task.setvariable variable=CHANGED_FOLDERS;isOutput=true]$paths_without_filenames"
+    echo "##vso[task.setvariable variable=CHANGED_FOLDERS;isOutput=true]${paths_without_filenames}"
   displayName: Getting the changeset
 
 - script: |
