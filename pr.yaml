@@ -52,7 +52,7 @@ stages:
         paths_without_filenames=()
     
         # Create a temporary YAML file with the generated matrix
-        job_file="../pr_integration/jobs.yml"
+        job_file="../pr_integration/jobs.yaml"
         echo "jobs:" > $job_file
           
         for folder in ${changed_folders[@]}; do
@@ -86,7 +86,7 @@ stages:
         git diff
         git add .
         git -c user.name='aztfmod.test' -c user.email='aazdo_pr_check@aztfmod.null' commit -am "Integration jobs"
-        git push origin pr_examples/$(System.PullRequest.SourceCommitId) --force
+        git push origin pr_examples/$(System.PullRequest.SourceCommitId)
         
       displayName: Getting the example folders
       name: changeset
