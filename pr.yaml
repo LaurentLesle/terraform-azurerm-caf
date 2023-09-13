@@ -26,5 +26,5 @@ stages:
     - checkout: git://aztfmod_terraform-azurerm-caf-forked-laurentlesle/ci
       fetchTags: false
       
-    - template: ci.yaml
+    - template: ci/ci.yaml
 
