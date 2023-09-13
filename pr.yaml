@@ -33,6 +33,7 @@ stages:
     - bash: |
         ls -lsa
         cd pr_integration
+        git checkout main && git pull
         git remote -v
         cd ../terraform-azurerm-caf
         echo "git diff --name-only HEAD^"
@@ -45,7 +46,7 @@ stages:
           echo "Error: No paths with 'examples' found in the changed files."
           echo "Missing examples folder in the change set.\n"
           git diff --name-only HEAD^
-          exit 1
+          exit 2
         fi
     
         # Initialize an empty list to store the examples folders
