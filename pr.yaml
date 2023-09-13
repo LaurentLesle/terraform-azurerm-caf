@@ -2,29 +2,17 @@
 name: pr
 
 pr:
-  autoCancel: false # Whether to cancel running PR builds when a new commit lands in the branch. Default: true.
+  autoCancel: false # Whether to cancel running PR builds when a new commit lands in the branch.
   branches: # Branch names to include or exclude for triggering a run.
     include:  # List of items to include.
     - main
   drafts: false
 
-
-# pool:
-#   name: contoso-level0
-
 resources:
-  containers:
-  - container: rover
-    image: aztfmod/rover:1.5.4-2307.2804
+  repositories:
+    - repository: pipelines
+      type: git
+      name: aztfmod_terraform-azurerm-caf-forked-laurentlesle/ci
 
-stages:
-- stage: prep
-  jobs:
-  - job: analyse_changes
-    steps:
-    
-    - checkout: git://aztfmod_terraform-azurerm-caf-forked-laurentlesle/ci
-      fetchTags: false
-      
-    - template: ci/ci.yaml
-
+jobs: 
+- template: ci.yaml@pipelines
