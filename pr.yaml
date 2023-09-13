@@ -33,9 +33,9 @@ stages:
     - bash: |
         ls -lsa
         cd pr_integration
+        git config pull.rebase false 
         git checkout -b pr_examples/$(System.PullRequest.SourceCommitId) || git checkout pr_examples/$(System.PullRequest.SourceCommitId) && git pull
         git branch --set-upstream-to=origin/pr_examples/$(System.PullRequest.SourceCommitId) pr_examples/$(System.PullRequest.SourceCommitId)
-        git config pull.rebase false 
         git remote -v
         
         cd ../terraform-azurerm-caf
