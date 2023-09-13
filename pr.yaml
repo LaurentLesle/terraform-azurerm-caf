@@ -26,6 +26,7 @@ stages:
     - checkout: git://aztfmod_terraform-azurerm-caf-forked-laurentlesle/pr_integration
       persistCredentials: true
       fetchTags: false
+      clean: true
       
     - checkout: self
       fetchTags: true
